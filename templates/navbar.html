@@ -1,0 +1,74 @@
+{% load static %}
+<nav class="fixed-top navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">Ecommerce</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+         
+          
+          {% if user.is_authenticated  %}
+
+         
+
+          
+          
+              
+          {%  endif %}
+        
+         
+        </ul>
+        {% if user.is_authenticated  %}
+
+        <div>
+          <a href="{% url 'order_history'%}">
+            <button type="submit" class="btn btn-dark">Orders</button>
+          </a>
+        </div>
+
+        <div>
+          <a href="{% url 'cart'%}">
+            <button type="submit" class="btn btn-dark">Cart {{product_in_cart }}</button>
+          </a>
+        </div>
+
+        <div>
+          <a href="{% url 'logout'%}">
+            <button type="submit" class="btn btn-dark">Logout</button>
+          </a>
+        </div>
+
+        
+        {% else %}
+        <div>
+
+          <a href="{% url 'login'%}">
+            <button type="submit" class="btn btn-dark">Login</button>
+          </a>
+
+          <a href="{% url 'register'%}">
+            <button type="submit" class="btn btn-dark">Register</button>
+          </a>
+
+        </div>
+        {%  endif %}
+     
+
+       
+
+        <div class="">
+          {% if user.is_authenticated %}
+            <a  class ="text-decoration-none" href = "{% url 'update_profile'  %}" >
+                <img src="{% static 'images/default_profile_pic.jpg' %}" height=50  width=50 class="m-1 rounded-circle" alt="profile images">
+            </a>
+          {% endif %}
+        </div>
+          
+      </div>
+    </div>
+  </nav>
+  <br>
+  <br>
+  <br>

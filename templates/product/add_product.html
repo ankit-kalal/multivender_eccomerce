@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="col-md-6 offset-md-3">
+<h1>Add Product</h1>
+<br/>
+
+<form method="POST" action="" enctype="multipart/form-data">
+	{% csrf_token %}
+	{% comment %} {{ form.as_p }} {% endcomment %}
+
+    {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+    {% endfor %}
+  
+    {% for field in form.visible_fields %}
+   
+        {% for error in field.errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    
+    
+        {{ field.label_tag }} {{ field }}
+    {% endfor %} 
+
+	<br/>
+  	<button type="submit" class="btn btn-secondary">Submit</button>
+</form>
+
+</div>
+
+
+{% endblock %}

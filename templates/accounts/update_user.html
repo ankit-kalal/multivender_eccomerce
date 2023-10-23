@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.profile.is_seller %}
+<div class="col-md-6 offset-md-4">
+
+    <a href="{% url 'add_product'%}">
+    <button type="submit" class="btn btn-secondary">Add New Product</button>
+    </a>
+    </br>
+    </br>
+
+    <a href="{% url 'add_product'%}">
+        <button type="submit" class="btn btn-secondary">View All Recived Order</button>
+    </a>
+
+</div>
+
+{% else %}
+
+
+<div class="col-md-6 offset-md-3">
+    <h1>Update your self as Seller</h1>
+    <br/>
+    <form method="POST" action="{% url 'update_profile' %}">
+        {% csrf_token %}
+        <br/>
+        <button type="submit" class="btn btn-secondary">Click Here To Become a Seller</button>
+    </form>
+</div>
+
+{% endif %}
+
+
+
+
+
+
+{% endblock %}
+update user
