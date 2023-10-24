@@ -106,7 +106,8 @@
           <div class="col-md-4">
             <figure class="card card-product-grid">
               <div class="img-wrap">
-                <a ><img src="{{ product.image.url }}" width="200" height="400" /></a>
+                <a href="{% url 'view_product' product_id=product.id %}"
+                ><img src="{{ product.image.url }}" width="200" height="400" /></a>
               </div>
               <!-- img-wrap.// -->
               <figcaption class="info-wrap">

@@ -6,7 +6,7 @@
 <div class="col-md-6 offset-md-3">
 <h1>orders</h1>
 <br/>
-{% if cart_items %}
+
 
 <table>
     <thead>
@@ -15,6 +15,7 @@
         <th>Product Image</th>
         <th>Product Name</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -28,14 +29,21 @@
             <a href="#" class="title text-dark">{{ cart_item.product.name }}</a>
           </td>
           <td>{{ cart_item.order.status }}</td>
+
+          {% if cart_item.order.status == "pending" %}
+            <td>
+                <form method="POST" action="{% url 'update_order' order_id=cart_item.order.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">Change status pending to shipped for ordder id {{cart_item.order.id}} </button>
+                </form>
+            </td>
+        
+          {% endif %}
+
         </tr>
       {% endfor %}
     </tbody>
   </table>
-
-  {% else %}
-    <h1>You have not place any order right now place order after that you will see here</h1>
-  {% endif %}
   
 
 </div>

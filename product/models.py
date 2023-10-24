@@ -16,3 +16,11 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product_images/')
 
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product, related_name="comment_on_product", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="comment_by_user", on_delete=models.CASCADE)
+    body = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)

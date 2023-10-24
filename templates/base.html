@@ -26,6 +26,10 @@
   <body>
 
     {% include 'navbar.html' %}
+
+    {% if not request.user.profile.is_seller %}
+      click on profile icon to update your self as seller
+    {% endif %}
     
     <div class="container">
         <br/>

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-4">
+    <figure class="card card-product-grid">
+      <div class="img-wrap">
+        <a 
+        ><img src="{{ product.image.url }}" width="200" height="400" /></a>
+      </div>
+      <!-- img-wrap.// -->
+      <figcaption class="info-wrap">
+        <div class="fix-height">
+          <h6  class="title">{{ product.name }}</h6>
+          <p  class="title">{{ product.description }}</p>
+          <div class="price-wrap mt-2">
+            <span class="price">RS {{ product.price }}</span>
+            <del class="price-old">RS 1980</del>
+          </div>
+          <!-- price-wrap.// -->
+        </div>
+         <a
+          href="{% url 'add_to_cart' product_id=product.id %}"
+          class="btn btn-block btn-success"
+          >Add to cart
+        </a> 
+      </figcaption>
+    </figure>
+  </div>
+  <div>
+    <form method="POST" action="{% url 'add_comment' product_id=product.id %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input type="text" class="form-control" required name="comment" placeholder="">
+        </div>
+        <p>only if the user have purchase this prodduct then he/she can comment on this product</p>
+        <button type="submit" class="btn btn-secondary">Add Comment</button>
+    </form>
+  </div>
+ </br>
+  <div>
+    <h4>all comments</h4>
+    {% for comment in comments %}
+    commnet =  {{comment.body}} by user = {{comment.user.username|title}} at time = {{comment.created_at}}
+    {% endfor %}
+  </div>
+
+  {% endblock %}

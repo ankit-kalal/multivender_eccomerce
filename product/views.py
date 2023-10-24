@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.core.paginator import Paginator
 
 from .forms import ProductForm
-from .models import Product
+from .models import Product , Comment
 from cart.models import CartItem
 
 # Create your views here.
@@ -68,4 +68,39 @@ def home(request):
                'product_in_cart' : product_in_cart}
 
     return render(request, 'home.html',context)
+
+
+
+def view_product(request,product_id):
+    product = Product.objects.get(id=product_id)
+    comments = Comment.objects.filter(product_id=product_id)
+    context = {
+        "product":product,
+        "comments":comments
+    }
+    return render(request, 'product/view_product.html',context)
+
+
+def add_comment(request,product_id):
+
+    if request.method == 'POST':
+
+        cart_item = CartItem.objects.filter(user=request.user, product__id=product_id).first()
+
+        if cart_item:
+            comment = request.POST.get('comment')
+            product = Product.objects.get(id=product_id)
+
+            comment =Comment(
+                    product = product,
+                    user = request.user,
+                    body = comment,
+                )
+            comment.save()
+        else:
+            print("you have to purchase to comment on this product")
+
+   
+    return redirect('view_product',product_id)
+    pass
     

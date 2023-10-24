@@ -91,5 +91,20 @@ def order_history(request):
     return render(request,'cart/order_history.html',context)
 
 
-def incoming_orders():
-    pass
+def incoming_orders(request):
+    user_products = Product.objects.filter(seller=request.user)
+    cart_items = CartItem.objects.filter(product__in=user_products).order_by("order_id")
+
+    context = {
+       "cart_items" : cart_items, 
+    }
+
+    return render(request,'cart/incoming_order.html',context)
+
+
+def update_order(request, order_id):
+    order_to_update = Order.objects.filter(id=order_id).first()
+    order_to_update.status ='shipped'
+    order_to_update.save()
+    return redirect('incoming_orders')
+    
